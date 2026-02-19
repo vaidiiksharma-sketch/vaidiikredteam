@@ -1,0 +1,1283 @@
+
+Vaidik sharma landing · HTML
+Copy
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vaidik Sharma — AI Security Consultant</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --green: #00FF41;
+    --green-dim: #00cc33;
+    --green-muted: rgba(0,255,65,0.12);
+    --green-glow: rgba(0,255,65,0.25);
+    --orange: #FF6B00;
+    --orange-dim: rgba(255,107,0,0.15);
+    --bg: #0d0f0e;
+    --bg2: #111412;
+    --bg3: #161a17;
+    --border: rgba(0,255,65,0.18);
+    --text: #c8d6c9;
+    --text-dim: #5a6b5b;
+    --mono: 'Share Tech Mono', monospace;
+    --sans: 'DM Sans', sans-serif;
+    --display: 'Syne', sans-serif;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    font-size: 16px;
+    line-height: 1.6;
+    overflow-x: hidden;
+    cursor: crosshair;
+  }
+
+  /* ─── SCANLINE OVERLAY ─── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgba(0,0,0,0.03) 2px,
+      rgba(0,0,0,0.03) 4px
+    );
+    pointer-events: none;
+    z-index: 9999;
+  }
+
+  /* ─── NOISE TEXTURE ─── */
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 9998;
+    opacity: 0.4;
+  }
+
+  /* ─── NAV ─── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 1000;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 60px;
+    background: rgba(13,15,14,0.85);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-logo {
+    font-family: var(--mono);
+    color: var(--green);
+    font-size: 13px;
+    letter-spacing: 0.08em;
+  }
+
+  .nav-logo span { color: var(--text-dim); }
+
+  .nav-links {
+    display: flex;
+    gap: 36px;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--text-dim);
+    text-decoration: none;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--green); }
+
+  .nav-cta {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--bg) !important;
+    background: var(--green) !important;
+    padding: 8px 20px;
+    border-radius: 2px;
+    text-decoration: none;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    transition: opacity 0.2s, box-shadow 0.2s !important;
+  }
+
+  .nav-cta:hover {
+    opacity: 0.85 !important;
+    box-shadow: 0 0 20px var(--green-glow) !important;
+  }
+
+  /* ─── HERO ─── */
+  #hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    padding: 140px 60px 80px;
+    position: relative;
+    gap: 60px;
+  }
+
+  .hero-grid-bg {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(var(--border) 1px, transparent 1px),
+      linear-gradient(90deg, var(--border) 1px, transparent 1px);
+    background-size: 60px 60px;
+    mask-image: radial-gradient(ellipse 70% 80% at 60% 50%, black 0%, transparent 70%);
+    opacity: 0.5;
+  }
+
+  .hero-left { position: relative; z-index: 2; }
+
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--green);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    border: 1px solid var(--border);
+    padding: 6px 14px;
+    border-radius: 2px;
+    margin-bottom: 32px;
+    background: var(--green-muted);
+  }
+
+  .hero-badge::before {
+    content: '';
+    width: 6px; height: 6px;
+    background: var(--green);
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; box-shadow: 0 0 0 0 var(--green-glow); }
+    50% { opacity: 0.6; box-shadow: 0 0 0 6px transparent; }
+  }
+
+  .hero-headline {
+    font-family: var(--display);
+    font-size: clamp(36px, 4.5vw, 64px);
+    font-weight: 800;
+    line-height: 1.05;
+    color: #fff;
+    margin-bottom: 24px;
+    letter-spacing: -0.02em;
+  }
+
+  .hero-headline .accent { color: var(--green); }
+
+  .hero-subheadline {
+    font-size: 16px;
+    color: var(--text);
+    line-height: 1.7;
+    max-width: 480px;
+    margin-bottom: 40px;
+    font-weight: 300;
+  }
+
+  .hero-subheadline strong {
+    color: #fff;
+    font-weight: 500;
+  }
+
+  .hero-ctas {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
+  .btn-primary {
+    display: inline-block;
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--bg);
+    background: var(--green);
+    padding: 14px 28px;
+    border-radius: 2px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.2s;
+    box-shadow: 0 0 30px rgba(0,255,65,0.2);
+  }
+
+  .btn-primary:hover {
+    box-shadow: 0 0 50px rgba(0,255,65,0.4);
+    transform: translateY(-1px);
+  }
+
+
+  .btn-linkedin {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--green);
+    text-decoration: none;
+    border: 1px solid var(--border);
+    padding: 14px 22px;
+    border-radius: 2px;
+    background: var(--green-muted);
+    transition: all 0.2s;
+  }
+
+  .btn-linkedin:hover {
+    border-color: var(--green);
+    box-shadow: 0 0 20px var(--green-glow);
+    transform: translateY(-1px);
+  }
+
+  .hero-meta {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--text-dim);
+    letter-spacing: 0.06em;
+    padding-top: 4px;
+  }
+
+  /* ─── TERMINAL PANEL ─── */
+  .hero-right { position: relative; z-index: 2; }
+
+  .terminal {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    overflow: hidden;
+    box-shadow: 0 0 60px rgba(0,255,65,0.08), 0 40px 80px rgba(0,0,0,0.5);
+  }
+
+  .terminal-bar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 16px;
+    background: rgba(0,0,0,0.4);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .t-dot { width: 10px; height: 10px; border-radius: 50%; }
+  .t-dot.red { background: #ff5f57; }
+  .t-dot.yellow { background: #febc2e; }
+  .t-dot.green { background: #28c840; }
+
+  .terminal-title {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--text-dim);
+    margin-left: 8px;
+    letter-spacing: 0.08em;
+  }
+
+  .terminal-body {
+    padding: 24px;
+    font-family: var(--mono);
+    font-size: 12px;
+    line-height: 1.9;
+    min-height: 340px;
+  }
+
+  .t-line { display: flex; gap: 10px; }
+  .t-prompt { color: var(--green); flex-shrink: 0; }
+  .t-cmd { color: #c8d6c9; }
+  .t-out { color: var(--text-dim); padding-left: 20px; }
+  .t-warn { color: var(--orange); padding-left: 20px; }
+  .t-success { color: var(--green); padding-left: 20px; }
+  .t-blank { height: 8px; }
+
+  .t-cursor {
+    display: inline-block;
+    width: 8px;
+    height: 14px;
+    background: var(--green);
+    vertical-align: middle;
+    animation: blink 1s step-end infinite;
+    margin-left: 2px;
+  }
+
+  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+
+  /* ─── SECTIONS ─── */
+  section { padding: 100px 60px; position: relative; }
+
+  .section-tag {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--green);
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .section-tag::before {
+    content: '';
+    display: block;
+    width: 24px;
+    height: 1px;
+    background: var(--green);
+  }
+
+  .section-title {
+    font-family: var(--display);
+    font-size: clamp(28px, 3vw, 44px);
+    font-weight: 800;
+    color: #fff;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    margin-bottom: 16px;
+  }
+
+  .section-subtitle {
+    font-size: 15px;
+    color: var(--text-dim);
+    max-width: 560px;
+    line-height: 1.7;
+    margin-bottom: 64px;
+  }
+
+  /* ─── SECTION 2: JOURNEY ─── */
+  #proof { background: var(--bg2); }
+
+  .proof-header { max-width: 700px; margin-bottom: 64px; }
+
+  .timeline-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    overflow: hidden;
+    margin-bottom: 32px;
+  }
+
+  .tg-cell {
+    background: var(--bg3);
+    padding: 28px 24px;
+    position: relative;
+    transition: background 0.2s;
+  }
+
+  .tg-cell:hover { background: rgba(0,255,65,0.04); }
+
+  .tg-level {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--text-dim);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+
+  .tg-badge {
+    display: inline-block;
+    font-family: var(--mono);
+    font-size: 20px;
+    font-weight: bold;
+    color: var(--green);
+    margin-bottom: 12px;
+  }
+
+  .tg-cell.lvl-8 .tg-badge { color: var(--orange); }
+
+  .tg-name {
+    font-family: var(--display);
+    font-size: 14px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 10px;
+    line-height: 1.3;
+  }
+
+  .tg-desc {
+    font-size: 12px;
+    color: var(--text-dim);
+    line-height: 1.6;
+  }
+
+  .tg-cell.lvl-8 {
+    background: rgba(255,107,0,0.06);
+    border-top: 2px solid var(--orange);
+  }
+
+  .tg-cell.lvl-8:hover { background: rgba(255,107,0,0.1); }
+
+  .breach-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--orange);
+    color: #fff;
+    font-family: var(--mono);
+    font-size: 9px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    padding: 3px 8px;
+    border-radius: 2px;
+    margin-bottom: 10px;
+  }
+
+  .technical-note {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    background: var(--green-muted);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 20px 24px;
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--green);
+    line-height: 1.6;
+  }
+
+  .technical-note::before {
+    content: '//';
+    flex-shrink: 0;
+    opacity: 0.5;
+  }
+
+  /* ─── SECTION 3: BUSINESS CASE ─── */
+  #business { background: var(--bg); }
+
+  .business-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+    align-items: start;
+  }
+
+  .risk-list { display: flex; flex-direction: column; gap: 16px; }
+
+  .risk-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 20px;
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    transition: border-color 0.2s;
+  }
+
+  .risk-item:hover { border-color: rgba(255,107,0,0.4); }
+
+  .risk-icon {
+    width: 36px; height: 36px;
+    background: var(--orange-dim);
+    border: 1px solid rgba(255,107,0,0.3);
+    border-radius: 3px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-size: 16px;
+  }
+
+  .risk-content h4 {
+    font-family: var(--display);
+    font-size: 14px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 4px;
+  }
+
+  .risk-content p {
+    font-size: 13px;
+    color: var(--text-dim);
+    line-height: 1.5;
+  }
+
+  .compliance-panel {
+    background: var(--bg3);
+    border: 1px solid rgba(255,107,0,0.3);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .compliance-header {
+    background: var(--orange-dim);
+    border-bottom: 1px solid rgba(255,107,0,0.3);
+    padding: 20px 24px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .compliance-header h3 {
+    font-family: var(--display);
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--orange);
+  }
+
+  .compliance-body { padding: 24px; }
+
+  .stat-block {
+    text-align: center;
+    padding: 28px;
+    border: 1px solid rgba(255,107,0,0.2);
+    border-radius: 3px;
+    margin-bottom: 20px;
+    background: rgba(255,107,0,0.04);
+  }
+
+  .stat-num {
+    font-family: var(--display);
+    font-size: 40px;
+    font-weight: 800;
+    color: var(--orange);
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+
+  .stat-sub {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--text-dim);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .compliance-text {
+    font-size: 13px;
+    color: var(--text);
+    line-height: 1.7;
+    margin-bottom: 16px;
+  }
+
+  .solution-box {
+    display: flex;
+    gap: 12px;
+    background: var(--green-muted);
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    padding: 16px;
+    font-size: 13px;
+    color: var(--text);
+    line-height: 1.6;
+  }
+
+  .solution-box strong { color: var(--green); }
+
+  /* ─── SECTION 4: SERVICES ─── */
+  #services { background: var(--bg2); }
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .service-card {
+    background: var(--bg3);
+    padding: 40px 36px;
+    position: relative;
+    transition: background 0.3s;
+    overflow: hidden;
+  }
+
+  .service-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: var(--green);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s;
+  }
+
+  .service-card:hover::before { transform: scaleX(1); }
+  .service-card:hover { background: rgba(0,255,65,0.03); }
+
+  .service-num {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--text-dim);
+    letter-spacing: 0.2em;
+    margin-bottom: 20px;
+  }
+
+  .service-icon-wrap {
+    width: 48px; height: 48px;
+    background: var(--green-muted);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    margin-bottom: 20px;
+  }
+
+  .service-name {
+    font-family: var(--display);
+    font-size: 20px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 12px;
+    line-height: 1.2;
+  }
+
+  .service-desc {
+    font-size: 14px;
+    color: var(--text-dim);
+    line-height: 1.7;
+  }
+
+  .service-tag {
+    margin-top: 20px;
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--green);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  /* ─── SECTION 5: METHODOLOGY ─── */
+  #methodology { background: var(--bg); }
+
+  .method-track {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    position: relative;
+    margin-top: 16px;
+  }
+
+  .method-track::before {
+    content: '';
+    position: absolute;
+    top: 32px;
+    left: 10%;
+    right: 10%;
+    height: 1px;
+    background: linear-gradient(90deg, var(--green), var(--green-dim), var(--green));
+    opacity: 0.3;
+    z-index: 0;
+  }
+
+  .method-step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 0 20px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .step-circle {
+    width: 64px; height: 64px;
+    border-radius: 50%;
+    border: 1px solid var(--border);
+    background: var(--bg3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--display);
+    font-size: 22px;
+    font-weight: 800;
+    color: var(--green);
+    margin-bottom: 24px;
+    position: relative;
+    box-shadow: 0 0 30px rgba(0,255,65,0.1);
+    transition: box-shadow 0.3s, border-color 0.3s;
+  }
+
+  .method-step:hover .step-circle {
+    box-shadow: 0 0 50px rgba(0,255,65,0.25);
+    border-color: var(--green);
+  }
+
+  .step-label {
+    font-family: var(--mono);
+    font-size: 9px;
+    color: var(--green);
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+
+  .step-name {
+    font-family: var(--display);
+    font-size: 18px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 10px;
+    line-height: 1.2;
+  }
+
+  .step-desc {
+    font-size: 13px;
+    color: var(--text-dim);
+    line-height: 1.6;
+  }
+
+  /* ─── DATA METRICS STRIP ─── */
+  .metrics-strip {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    overflow: hidden;
+    margin-top: 80px;
+  }
+
+  .metric-cell {
+    background: var(--bg3);
+    padding: 32px 28px;
+    text-align: center;
+  }
+
+  .metric-val {
+    font-family: var(--display);
+    font-size: 36px;
+    font-weight: 800;
+    color: var(--green);
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+
+  .metric-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--text-dim);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+
+  /* ─── FOOTER ─── */
+  footer {
+    background: var(--bg2);
+    border-top: 1px solid var(--border);
+    padding: 60px;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: end;
+    gap: 40px;
+  }
+
+  .footer-logo {
+    font-family: var(--display);
+    font-size: 22px;
+    font-weight: 800;
+    color: #fff;
+    margin-bottom: 8px;
+  }
+
+  .footer-logo span { color: var(--green); }
+
+  .footer-tagline {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--text-dim);
+    letter-spacing: 0.08em;
+    margin-bottom: 20px;
+  }
+
+  .footer-contact a {
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--green);
+    text-decoration: none;
+    letter-spacing: 0.06em;
+    transition: opacity 0.2s;
+  }
+
+  .footer-contact a:hover { opacity: 0.7; }
+
+  .footer-right {
+    text-align: right;
+  }
+
+  .footer-copy {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--text-dim);
+    letter-spacing: 0.1em;
+    line-height: 1.8;
+  }
+
+  .footer-links {
+    display: flex;
+    gap: 24px;
+    justify-content: flex-end;
+    margin-bottom: 16px;
+  }
+
+  .footer-links a {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--text-dim);
+    text-decoration: none;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+
+  .footer-links a:hover { color: var(--green); }
+
+  /* ─── ANIMATIONS ─── */
+  .fade-up {
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeUp 0.7s ease forwards;
+  }
+
+  @keyframes fadeUp {
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .delay-1 { animation-delay: 0.1s; }
+  .delay-2 { animation-delay: 0.2s; }
+  .delay-3 { animation-delay: 0.35s; }
+  .delay-4 { animation-delay: 0.5s; }
+
+  /* Typewriter */
+  @keyframes typing {
+    from { width: 0; }
+    to { width: 100%; }
+  }
+
+  /* ─── DIVIDER ─── */
+  .divider {
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--green), transparent);
+    opacity: 0.2;
+    margin: 0;
+  }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 900px) {
+    nav { padding: 16px 24px; }
+    .nav-links { display: none; }
+    #hero { grid-template-columns: 1fr; padding: 120px 24px 60px; }
+    .hero-right { display: none; }
+    section { padding: 70px 24px; }
+    .timeline-grid { grid-template-columns: repeat(2, 1fr); }
+    .business-grid { grid-template-columns: 1fr; }
+    .services-grid { grid-template-columns: 1fr; }
+    .method-track { grid-template-columns: 1fr 1fr; gap: 40px; }
+    .method-track::before { display: none; }
+    .metrics-strip { grid-template-columns: 1fr 1fr; }
+    footer { grid-template-columns: 1fr; }
+    .footer-right { text-align: left; }
+    .footer-links { justify-content: flex-start; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ─── NAV ─── -->
+<nav>
+  <div class="nav-logo">VS<span>/</span>AI_SECURITY</div>
+  <ul class="nav-links">
+    <li><a href="#proof">Research</a></li>
+    <li><a href="#business">Risk</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#methodology">Methodology</a></li>
+    <li><a href="#" class="nav-cta" onclick="window.location.href='mai'+'lto:vaidiiksharma'+'@'+'gmail.com'; return false;">Hire Me</a></li>
+  </ul>
+</nav>
+
+<!-- ─── HERO ─── -->
+<section id="hero">
+  <div class="hero-grid-bg"></div>
+
+  <div class="hero-left">
+    <div class="hero-badge fade-up">AI Red Teamer &amp; Security Consultant</div>
+    <h1 class="hero-headline fade-up delay-1">
+      Hardening AI Logic.<br>
+      <span class="accent">Protecting</span> Enterprise<br>Integrity.
+    </h1>
+    <p class="hero-subheadline fade-up delay-2">
+      I am <strong>Vaidik Sharma</strong>, an AI Red Teamer specializing in Adversarial Logic and Model Hardening. I secure LLMs by thinking like an attacker — before the real ones do.
+    </p>
+    <div class="hero-ctas fade-up delay-3">
+    </div>
+    <p class="hero-meta fade-up delay-4" style="margin-top:28px">&#x2192; Response within 24 hrs &nbsp;&nbsp;|&nbsp;&nbsp; NDA available</p>
+  </div>
+
+  <div class="hero-right fade-up delay-2">
+    <div class="terminal">
+      <div class="terminal-bar">
+        <div class="t-dot red"></div>
+        <div class="t-dot yellow"></div>
+        <div class="t-dot green"></div>
+        <span class="terminal-title">redteam_session.sh — vaidik@plutoailab</span>
+      </div>
+      <div class="terminal-body">
+        <div class="t-line"><span class="t-prompt">$</span><span class="t-cmd">./init_assessment --target model-v3 --mode aggressive</span></div>
+        <div class="t-blank"></div>
+        <div class="t-out">[INIT] Loading adversarial test suite v2.1...</div>
+        <div class="t-out">[INIT] 8 hardened bypass layers detected</div>
+        <div class="t-out">[SCAN] Mapping semantic guardrail topology...</div>
+        <div class="t-blank"></div>
+        <div class="t-line"><span class="t-prompt">$</span><span class="t-cmd">./run_probe --level 1-4 --method keyword_bypass</span></div>
+        <div class="t-out">[LVL 1-4] Keyword filters .......... BYPASSED ✓</div>
+        <div class="t-out">[LVL 1-4] System instruction walls .. DEFEATED ✓</div>
+        <div class="t-blank"></div>
+        <div class="t-line"><span class="t-prompt">$</span><span class="t-cmd">./run_probe --level 5-7 --method semantic_shift</span></div>
+        <div class="t-out">[LVL 5-7] Semantic guardrails ....... BYPASSED ✓</div>
+        <div class="t-out">[LVL 5-7] Multi-agent safety ........ DEFEATED ✓</div>
+        <div class="t-blank"></div>
+        <div class="t-line"><span class="t-prompt">$</span><span class="t-cmd">./run_probe --level 8 --method CVG_mapping</span></div>
+        <div class="t-warn">[LVL 8] Contextual Virtualization . INITIATING</div>
+        <div class="t-warn">[LVL 8] Visual Geometry Mapping ... LOADING</div>
+        <div class="t-success">[BREACH] All 8 layers compromised. ████████ 100%</div>
+        <div class="t-blank"></div>
+        <div class="t-line"><span class="t-prompt">$</span><span class="t-cursor"></span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ─── SECTION 2: PROOF ─── -->
+<section id="proof">
+  <div class="proof-header">
+    <div class="section-tag">Defensive Research</div>
+    <h2 class="section-title">Breaking the<br>'Unbreakable'.</h2>
+    <p class="section-subtitle">A structured red-team journey through eight hardened defensive layers — each breach revealing a gap that can now be sealed.</p>
+  </div>
+
+  <div class="timeline-grid">
+    <!-- Levels 1-4 -->
+    <div class="tg-cell">
+      <div class="tg-level">Levels 1 – 4 &nbsp; · &nbsp; Baseline</div>
+      <div class="tg-badge">01–04</div>
+      <div class="tg-name">Keyword Filter Evasion</div>
+      <p class="tg-desc">Defeating surface-level content filters and simple system-instruction constraints using lexical substitution and encoding tricks.</p>
+    </div>
+
+    <div class="tg-cell">
+      <div class="tg-level">Levels 1 – 4 &nbsp; · &nbsp; Baseline</div>
+      <div class="tg-badge">01–04</div>
+      <div class="tg-name">System Instruction Bypass</div>
+      <p class="tg-desc">Circumventing rigid rule-based prompts embedded in developer system instructions through role confusion and context injection.</p>
+    </div>
+
+    <!-- Levels 5-7 -->
+    <div class="tg-cell">
+      <div class="tg-level">Levels 5 – 7 &nbsp; · &nbsp; Advanced</div>
+      <div class="tg-badge">05–07</div>
+      <div class="tg-name">Semantic Guardrail Bypass</div>
+      <p class="tg-desc">Exploiting meaning-level safety filters through indirect framing, persona layering, and iterative semantic drift techniques.</p>
+    </div>
+
+    <!-- Level 8 -->
+    <div class="tg-cell lvl-8">
+      <div class="tg-level">Level 8 &nbsp; · &nbsp; Final Stage</div>
+      <div class="breach-label">⚡ The Breach</div>
+      <div class="tg-badge">08</div>
+      <div class="tg-name">Contextual Virtualization &amp; Visual Geometry Mapping</div>
+      <p class="tg-desc">Successfully exploited through CVG — bypassing all 8 layers of hardened adversarial awareness in a single constructed context space.</p>
+    </div>
+  </div>
+
+  <div class="technical-note">
+    All research is conducted exclusively to build stronger defensive guardrails. Every vulnerability discovered is documented, reported, and patched. Offensive knowledge is applied only in service of defense.
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ─── SECTION 3: BUSINESS CASE ─── -->
+<section id="business">
+  <div class="section-tag">The Business Case</div>
+  <h2 class="section-title">Why Your AI<br>Needs Protection.</h2>
+
+  <div class="business-grid">
+    <div>
+      <p class="section-subtitle" style="margin-bottom: 32px;">AI systems are attack surfaces. Every deployed LLM carries vectors for exploitation, data exposure, and regulatory failure.</p>
+
+      <div class="risk-list">
+        <div class="risk-item">
+          <div class="risk-icon">⚡</div>
+          <div class="risk-content">
+            <h4>Prompt Injection Attacks</h4>
+            <p>Adversaries hijack your model's context, overriding safety logic and compelling it to execute unintended instructions on behalf of malicious actors.</p>
+          </div>
+        </div>
+        <div class="risk-item">
+          <div class="risk-icon">🔓</div>
+          <div class="risk-content">
+            <h4>Proprietary IP Theft</h4>
+            <p>Carefully crafted inputs extract your system prompts, fine-tuning data, or proprietary business logic — assets worth far more than infrastructure costs.</p>
+          </div>
+        </div>
+        <div class="risk-item">
+          <div class="risk-icon">🔍</div>
+          <div class="risk-content">
+            <h4>Sensitive Data Leaks</h4>
+            <p>Models hallucinate or reconstruct PII from training and context, exposing customer data through outputs — invisible to standard monitoring tools.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="compliance-panel">
+        <div class="compliance-header">
+          <span style="font-size:20px">⚠️</span>
+          <h3>EU AI Act Compliance</h3>
+        </div>
+        <div class="compliance-body">
+          <div class="stat-block">
+            <div class="stat-num">€35M</div>
+            <div class="stat-sub">or 7% of global annual turnover</div>
+          </div>
+          <p class="compliance-text">By 2026, the EU AI Act mandates that high-risk AI systems meet strict safety, transparency, and accountability standards. Non-compliant organizations face penalties of up to <strong style="color:var(--orange)">€35 Million or 7% of global turnover</strong> — whichever is higher.</p>
+          <p class="compliance-text" style="margin-bottom:20px">Without a formal security audit, your AI deployment is a regulatory liability, not just a technical risk.</p>
+          <div class="solution-box">
+            <span style="color:var(--green);flex-shrink:0">✓</span>
+            <span>I provide the professional <strong>Security Audit Report</strong> needed to demonstrate that your AI system is safe, ethical, and fully compliant with the EU AI Act framework.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ─── SECTION 4: SERVICES ─── -->
+<section id="services">
+  <div class="section-tag">Core Services</div>
+  <h2 class="section-title">What I Deliver.</h2>
+  <p class="section-subtitle">Precision-engineered security services tailored to the specific threat landscape of large language model deployments.</p>
+
+  <div class="services-grid">
+    <div class="service-card">
+      <div class="service-num">01 / 04</div>
+      <div class="service-icon-wrap">🎯</div>
+      <h3 class="service-name">Adversarial Red Teaming</h3>
+      <p class="service-desc">Systematic stress-testing of your deployed model against the latest jailbreak techniques, prompt injection vectors, and adversarial attack patterns — the same methods real attackers use, applied in a controlled defensive context.</p>
+      <div class="service-tag">→ Full Attack Surface Report</div>
+    </div>
+
+    <div class="service-card">
+      <div class="service-num">02 / 04</div>
+      <div class="service-icon-wrap">🛡️</div>
+      <h3 class="service-name">Prompt Hardening</h3>
+      <p class="service-desc">Engineering multi-layer defensive logic directly into your system instructions — creating contextual traps, semantic anchors, and instruction-priority hierarchies that resist bypass techniques at every level.</p>
+      <div class="service-tag">→ Hardened System Prompt Delivery</div>
+    </div>
+
+    <div class="service-card">
+      <div class="service-num">03 / 04</div>
+      <div class="service-icon-wrap">🔐</div>
+      <h3 class="service-name">PII Masking &amp; Data Governance</h3>
+      <p class="service-desc">Architectural and prompt-level controls ensuring your model cannot hallucinate, reconstruct, or leak personally identifiable information — meeting GDPR and AI Act data minimisation requirements.</p>
+      <div class="service-tag">→ Zero-Leak Architecture Design</div>
+    </div>
+
+    <div class="service-card">
+      <div class="service-num">04 / 04</div>
+      <div class="service-icon-wrap">📋</div>
+      <h3 class="service-name">Compliance Auditing</h3>
+      <p class="service-desc">A thorough mapping of your AI system's safety posture against the EU AI Act framework — producing a formal Risk Assessment Report suitable for regulatory review, board presentation, and enterprise due diligence.</p>
+      <div class="service-tag">→ EU AI Act Compliance Certificate</div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ─── SECTION 5: METHODOLOGY ─── -->
+<section id="methodology">
+  <div class="section-tag">The Methodology</div>
+  <h2 class="section-title">How I Help.</h2>
+  <p class="section-subtitle">A four-phase engagement framework — from initial reconnaissance to certified security clearance.</p>
+
+  <div class="method-track">
+    <div class="method-step">
+      <div class="step-circle">01</div>
+      <div class="step-label">Phase One</div>
+      <h3 class="step-name">Reconnaissance</h3>
+      <p class="step-desc">Mapping the model's complete logic surface — system prompt architecture, tool integrations, context boundaries, and behavioral edge cases.</p>
+    </div>
+
+    <div class="method-step">
+      <div class="step-circle">02</div>
+      <div class="step-label">Phase Two</div>
+      <h3 class="step-name">Stress Testing</h3>
+      <p class="step-desc">Applying the full Level 1–8 bypass toolkit: from keyword evasion to Contextual Virtualization and Visual Geometry Mapping techniques.</p>
+    </div>
+
+    <div class="method-step">
+      <div class="step-circle">03</div>
+      <div class="step-label">Phase Three</div>
+      <h3 class="step-name">Mitigation</h3>
+      <p class="step-desc">Patching every discovered logic gap with targeted prompt hardening, architectural recommendations, and validated defensive layers.</p>
+    </div>
+
+    <div class="method-step">
+      <div class="step-circle">04</div>
+      <div class="step-label">Phase Four</div>
+      <h3 class="step-name">Certification</h3>
+      <p class="step-desc">Delivering a professional Risk Assessment Report documenting all findings, remediations, and compliance status — ready for regulatory review.</p>
+    </div>
+  </div>
+
+  <div class="metrics-strip">
+    <div class="metric-cell">
+      <div class="metric-val">8</div>
+      <div class="metric-label">Adversarial Levels Mastered</div>
+    </div>
+    <div class="metric-cell">
+      <div class="metric-val">100%</div>
+      <div class="metric-label">Breach Rate on L8 Models</div>
+    </div>
+    <div class="metric-cell">
+      <div class="metric-val">€35M</div>
+      <div class="metric-label">Max Penalty Avoided</div>
+    </div>
+    <div class="metric-cell">
+      <div class="metric-val">24h</div>
+      <div class="metric-label">Initial Response Time</div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── FOOTER ─── -->
+<footer>
+  <div class="footer-left">
+    <div class="footer-logo">Vaidik<span>.</span>Sharma</div>
+    <div class="footer-tagline">"Securing the next generation of Intelligence."</div>
+    <div class="footer-contact">
+      <a href="#" onclick="window.location.href='mai'+'lto:vaidiiksharma'+'@'+'gmail.com'; return false;">vaidiiksharma@gmail.com</a>
+    </div>
+  </div>
+
+  <div class="footer-right">
+    <div class="footer-links">
+      <a href="#proof">Research</a>
+      <a href="#services">Services</a>
+      <a href="#methodology">Methodology</a>
+      <a href="#" onclick="window.location.href='mai'+'lto:vaidiiksharma'+'@'+'gmail.com'; return false;">Contact</a>
+    </div>
+    <div class="footer-copy">
+      AI Red Teamer · Adversarial Logic Specialist<br>
+      Model Hardening · EU AI Act Compliance<br>
+      <span style="color: var(--green); margin-top: 6px; display: block;">© 2025 Vaidik Sharma</span>
+    </div>
+  </div>
+</footer>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+  // ─── INTERSECTION OBSERVER ANIMATIONS ───
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.style.opacity = '1';
+        entry.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.tg-cell, .risk-item, .service-card, .method-step, .metric-cell').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(24px)';
+    el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+    observer.observe(el);
+  });
+
+  // ─── STAGGER GRID CHILDREN ───
+  document.querySelectorAll('.timeline-grid .tg-cell').forEach((el, i) => {
+    el.style.transitionDelay = `${i * 0.08}s`;
+  });
+  document.querySelectorAll('.services-grid .service-card').forEach((el, i) => {
+    el.style.transitionDelay = `${i * 0.08}s`;
+  });
+  document.querySelectorAll('.method-step').forEach((el, i) => {
+    el.style.transitionDelay = `${i * 0.1}s`;
+  });
+  document.querySelectorAll('.metric-cell').forEach((el, i) => {
+    el.style.transitionDelay = `${i * 0.06}s`;
+  });
+
+  // ─── METRICS COUNTER ANIMATION ───
+  const countUp = (el, target, suffix = '', decimals = 0) => {
+    let start = 0;
+    const step = target / 60;
+    const timer = setInterval(() => {
+      start = Math.min(start + step, target);
+      el.textContent = (decimals ? start.toFixed(decimals) : Math.floor(start)) + suffix;
+      if (start >= target) clearInterval(timer);
+    }, 16);
+  };
+
+  const metricsObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting && !entry.target.dataset.counted) {
+        entry.target.dataset.counted = true;
+        const vals = entry.target.querySelectorAll('.metric-val');
+        const data = [8, 100, 35, 24];
+        const suffixes = ['', '%', 'M', 'h'];
+        const prefixes = ['', '', '€', ''];
+        vals.forEach((v, i) => {
+          v.textContent = prefixes[i] + '0' + suffixes[i];
+          setTimeout(() => {
+            v.style.transition = 'all 0.5s';
+            countUp({
+              set textContent(val) { v.textContent = prefixes[i] + val + suffixes[i]; }
+            }, data[i]);
+          }, i * 100);
+        });
+      }
+    });
+  }, { threshold: 0.5 });
+
+  document.querySelectorAll('.metrics-strip').forEach(el => metricsObserver.observe(el));
+
+  // ─── CURSOR GLOW ───
+  const cursor = document.createElement('div');
+  cursor.style.cssText = `
+    position: fixed; width: 300px; height: 300px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(0,255,65,
